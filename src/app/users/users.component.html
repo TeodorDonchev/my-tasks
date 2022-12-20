@@ -1,0 +1,6 @@
+<p>users works!</p>
+<li *ngFor="let u of users">
+    <button type="button" [class.selected]="u==selectedUser" [disabled]="selectedUser && u!==selectedUser" (click)="onSelect(u)">{{u.name}}</button>
+</li>
+
+<app-task [user]="selectedUser" (deselectUser)="deselectUser()"></app-task>
