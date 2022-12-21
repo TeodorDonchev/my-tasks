@@ -1,5 +1,10 @@
 <div *ngIf="user">
     <p>User:{{user.name}}</p>
-    <button (click)="complete()">Complete</button>
-    <button (click)="clearUser()">Cancel</button>
+    <div *ngIf="selectedTask">
+        <span>Task: {{selectedTask.name}}</span>
+    </div>
+        <div>
+            <button (click)="complete()">Complete</button>
+            <button (click)="clearUser()">Cancel</button>
+        </div>
 </div>

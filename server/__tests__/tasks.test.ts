@@ -1,6 +1,6 @@
 import { CompletedTask } from "contracts/CompletedTask";
 import { AppTask, TaskType } from "contracts/Task";
-import { getUnfinishedTasks } from "server/get-tasks.route";
+import { getUncompletedTasks } from "server/get-tasks.route";
 
 
 describe('getUnfinishedTasks', () => {
@@ -31,12 +31,12 @@ describe('getUnfinishedTasks', () => {
 
         // Call the getUnfinishedTasks function
         // 20.12.2022 -> 1671557914390
-        const unfinishedTasks = getUnfinishedTasks(tasks, completedTasks, 1671557914390);
+        const unfinishedTasks = getUncompletedTasks(tasks, completedTasks, 1671557914390);
 
         // Verify that the function returns the correct number of tasks for each type
-        expect(unfinishedTasks[TaskType.Annual]).toHaveSize(1);
-        expect(unfinishedTasks[TaskType.Monthly]).toHaveSize(1);
-        expect(unfinishedTasks[TaskType.Weekly]).toHaveSize(2);
-        expect(unfinishedTasks[TaskType.Daily]).toHaveSize(2);
+        expect(unfinishedTasks.filter(u => u.type === TaskType.Annual)).toHaveSize(1);
+        expect(unfinishedTasks.filter(u => u.type === TaskType.Monthly)).toHaveSize(1);
+        expect(unfinishedTasks.filter(u => u.type === TaskType.Weekly)).toHaveSize(2);
+        expect(unfinishedTasks.filter(u => u.type === TaskType.Daily)).toHaveSize(2);
     });
 });
