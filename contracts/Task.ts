@@ -1,8 +1,8 @@
 export enum TaskType {
-    Daily,
-    Weekly,
-    Monthly,
-    Anual
+    Daily="daily",
+    Weekly = "weekly",
+    Monthly = "monthly",
+    Annual = "annual"
 }
 export interface AppTask {
     id: number;

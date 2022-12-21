@@ -1,7 +1,7 @@
 
 import * as express from 'express';
 import { Application } from "express";
-import { getAllTasks, getAllUsers, completeTask } from "./get-tasks.route";
+import { getUnfinishedTasks, getAllUsers, completeTask, getTasks } from "./get-tasks.route";
 
 const bodyParser = require('body-parser');
 
@@ -13,7 +13,7 @@ app.use(cors({ origin: true }));
 
 app.use(bodyParser.json());
 
-app.route('/api/tasks').get(getAllTasks);
+app.route('/api/tasks').get(getTasks);
 app.route('/api/users').get(getAllUsers);
 app.route('/api/task/:taskId/complete').put(completeTask);
 
