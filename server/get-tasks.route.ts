@@ -17,8 +17,8 @@ export function getAllUsers(req: Request, res: Response) {
 
 export function completeTask(req: Request, res: Response) {
 
-        const taskId = parseInt(req.body["taskId"]);
-        const userId = Number(req.body["userId"]);
+        const taskId = parseInt(req.params["taskId"]);
+        const userId = Number(req.params["userId"]);
         if(isNaN(userId)) throw "User id is not defined";
 
         // Your code to handle completing the task with the given taskId and userId
