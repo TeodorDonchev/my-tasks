@@ -21,7 +21,7 @@ export const TASKS: Array<AppTask> = [
     {
         id: 3,
         name: "test annual task",
-        type: TaskType.Anual
+        type: TaskType.Annual
     }
 ];
 export const USERS: Array<User> = [
