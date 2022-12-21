@@ -3,29 +3,41 @@ import { COMPLETED_TASKS, TASKS, USERS, } from "./db";
 import { AppTask, TaskType } from '../contracts/Task';
 import { CompletedTask } from '../contracts/CompletedTask';
 
-export function getTasks() {
-        return getUnfinishedTasks(TASKS, COMPLETED_TASKS, Date.now());
+export function getTasks(req: Request, res: Response) {
+        setTimeout(() => {
+                res.status(200).json(getUncompletedTasks(TASKS, COMPLETED_TASKS, Date.now()));
+        }, 200);
+
 }
 
-export function getUnfinishedTasks(tasks: AppTask[], completedTasks: CompletedTask[], currentDate: number):  { [key: string]: Array<AppTask> } {
-        // Initialize the unfinishedTasks object with empty arrays for each task type
-        const unfinishedTasks: { [key: string]: Array<AppTask> } = {
-                [TaskType.Annual]: [],
-                [TaskType.Monthly]: [],
-                [TaskType.Weekly]: [],
-                [TaskType.Daily]: [],
-        };
+export function getUncompletedTasks(tasks: AppTask[], completedTasks: CompletedTask[], currentDate: number): Array<AppTask> {
+        
+        const unfinishedTasks: AppTask[] = [];
 
         // Iterate over the tasks array
         for (const task of tasks) {
                 // Check if the task has been completed
                 const isCompleted = completedTasks.some(
-                        completedTask => completedTask.relation.sourceId === task.id
+                        completedTask => {
+                                if (completedTask.relation.targetId !== task.id) return false;
+                                let momentOfChecking = new Date(currentDate);
+                                switch (task.type) {
+                                        case TaskType.Annual:
+                                                return completedTask.date > currentDate - momentOfChecking.setFullYear(momentOfChecking.getFullYear() - 1);
+                                        case TaskType.Monthly:
+                                                return completedTask.date > currentDate - momentOfChecking.setMonth(momentOfChecking.getMonth() - 1);
+                                        case TaskType.Weekly:
+                                                return completedTask.date > currentDate - momentOfChecking.setFullYear(momentOfChecking.getFullYear(), momentOfChecking.getMonth(), momentOfChecking.getDay() - 7);
+                                        case TaskType.Daily:
+                                                return completedTask.date > currentDate - momentOfChecking.setFullYear(momentOfChecking.getFullYear(), momentOfChecking.getMonth(), momentOfChecking.getDay() - 1);
+                                        default: return false;
+                                }
+                        }
                 );
 
                 // If the task is not completed, add it to the appropriate array in the unfinishedTasks object
                 if (!isCompleted) {
-                        unfinishedTasks[task.type].push(task);
+                        unfinishedTasks.push(task);
                 }
         }
 
