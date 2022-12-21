@@ -22,6 +22,6 @@ export class BackendService {
   }
 
   completeTask(taskId: number, userId: number): Observable<CompletedTask>{
-    return this.http.put<CompletedTask>(this.host + `tasks/${taskId}/complete/${userId}`, null);
+    return this.http.put<CompletedTask>(this.host + `tasks/${taskId}/complete?userId=${userId}`, null);
   }
 }
