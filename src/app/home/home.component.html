@@ -1,0 +1,18 @@
+<div *ngIf="tasks.length > 0">
+    <h1>
+        <span>{{tasks.length}}</span> Tasks that should be completed today
+    </h1>
+    <li *ngFor="let u of users">
+        <button type="button" [class.selected]="u==selectedUser" [disabled]="selectedUser && u!==selectedUser"
+            (click)="userSelect(u)">{{u.name}}</button>
+    </li>
+    <div *ngIf="selectedUser && selectedTask">
+        <span>Task: {{selectedTask.name}}</span>
+        <div>
+            <button (click)="complete()">Complete</button>
+        </div>
+    </div>
+</div>
+<h1 *ngIf="tasks.length == 0">
+    there are no more tasks for today
+</h1>

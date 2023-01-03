@@ -4,21 +4,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import { TaskComponent } from './task/task.component';
+import { HomeComponent } from './home/home.component';
+import { ManagerComponent } from './manager/manager.component';
+import { BackendCacheService } from './backend-cache.service';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    TaskComponent
+    HomeComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [BackendCacheService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
