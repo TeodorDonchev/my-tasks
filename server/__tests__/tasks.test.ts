@@ -1,6 +1,6 @@
 import { CompletedTask } from "contracts/CompletedTask";
 import { AppTask, TaskType } from "contracts/Task";
-import { getUncompletedTasks } from "server/get-tasks.route";
+import { getUncompletedTasks } from "server/tasks.route";
 
 
 describe('getUnfinishedTasks', () => {
