@@ -4,8 +4,10 @@ import { Observable, share, shareReplay, Subject, switchMap } from 'rxjs';
 import { User } from 'contracts/User';
 import { CompletedTask } from 'contracts/CompletedTask';
 import { AppTask } from 'contracts/Task';
-import { BackendCacheService } from './backend-cache.service';
+import { UserService, AppTaskService } from './backend-cache.service';
 import { response } from 'express';
+import { ROUTER_CONFIGURATION } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -13,32 +15,26 @@ import { response } from 'express';
 })
 
 export class BackendService {
-
-  host = "http://localhost:9001/api/";
+  // get host from configuration file (environment.ts)
+  readonly host = environment.host;
 
   constructor(private http: HttpClient,
-    @Inject(BackendCacheService) private userCacheService: BackendCacheService<User>,
-    @Inject(BackendCacheService) private tasksCacheService: BackendCacheService<AppTask>) {
+    @Inject(UserService) private userService: UserService,
+    @Inject(AppTaskService) private tasksService: AppTaskService) {
   }
 
+  /// <summary>
+  /// get all users from the server and cache them 
+  /// if the cache is empty or expired it will make a request to the server
+  /// if the cache is not empty and not expired it will return the cached value
+  /// </summary>
+  /// <returns>Observable of array of users</returns>
   getUsers(): Observable<Array<User>> {
-    try {
-      return this.userCacheService.getValue();
-    } catch (e) {
-      let users = this.http.get<Array<User>>(this.host + 'users/');
-      this.userCacheService.setValue(users);
-      return users;
-    }
+    return this.userService.get()
   }
 
   getTasks(): Observable<Array<AppTask>> {
-    try {
-      return this.tasksCacheService.getValue()
-    } catch (e) {
-      let tasks = this.http.get<Array<AppTask>>(this.host + 'tasks/');
-      this.tasksCacheService.setValue(tasks);
-      return tasks;
-    }
+    return this.tasksService.get();
   }
 
   completeTask(taskId: number, userId: number): Observable<CompletedTask> {

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ManagerComponent } from './manager/manager.component';
-import { BackendCacheService } from './backend-cache.service';
+import { UserService } from './backend-cache.service';
 
 
 
@@ -21,7 +21,7 @@ import { BackendCacheService } from './backend-cache.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [BackendCacheService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

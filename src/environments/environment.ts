@@ -2,9 +2,28 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
+import * as dayjs from "dayjs";
+
+export interface IEnviroment {
+   production: boolean;
+   host: string;
+   cacheExpation: {
+       value: number,
+       type: dayjs.ManipulateType
+   }
+}
+
+
+export const environment : IEnviroment = {
+  production: false,
+  host: "http://localhost:9001/api/",
+  cacheExpation: {
+    value: 1,   // number
+    type: "day" 
+  }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file
