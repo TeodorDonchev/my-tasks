@@ -1,2 +1,11 @@
-<h1>Hello test app</h1>
-<app-users></app-users>
+<nav>
+    <div>
+        <a [routerLink]="['/home']">Home</a>
+    </div>
+    <div>
+        <a [routerLink]="['/manage']">Manage</a>
+    </div>
+</nav>
+<div class="centered">
+    <router-outlet></router-outlet>
+</div>

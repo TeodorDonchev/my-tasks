@@ -6,6 +6,7 @@ export const TASKS: Array<AppTask> = [
     {
         id: 0,
         name: "test daily task",
+        description: 'Deleting a repository will permanently delete release attachments, team permissions, issues, comments, and forks (if the repository is private). This action cannot be undone. Some deleted repositories can be restored within 90 days of deletion. For more information, see " Restoring a deleted repository ."(docs.github.com)',
         type: TaskType.Daily
     },
     {
@@ -21,6 +22,12 @@ export const TASKS: Array<AppTask> = [
     {
         id: 3,
         name: "test annual task",
+        type: TaskType.Annual
+    },
+    {
+        id: 4,
+        name: "test annual task",
+        description: "test annual task description",
         type: TaskType.Annual
     }
 ];
