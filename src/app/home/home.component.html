@@ -2,13 +2,19 @@
     <h1>
         <span>{{tasks.length}}</span> Tasks that should be completed today
     </h1>
-    <li *ngFor="let u of users">
-        <button type="button" [class.selected]="u==selectedUser" [disabled]="selectedUser && u!==selectedUser"
-            (click)="userSelect(u)">{{u.name}}</button>
-    </li>
-    <div *ngIf="selectedUser && selectedTask">
-        <span>Task: {{selectedTask.name}}</span>
-        <div>
+    <ul>
+        <li *ngFor="let u of users">
+            <button type="button" [class.selected]="u==selectedUser" (click)="userSelect(u)">{{u.name}}</button>
+        </li>
+    </ul>
+    <div class="taskCard" *ngIf="selectedUser && selectedTask">
+        <span class="title">
+            {{selectedTask.name}}
+        </span>
+        <div class="descriptionContainer">
+            {{selectedTask.description}}
+        </div>
+        <div class="buttonContainer">
             <button (click)="complete()">Complete</button>
         </div>
     </div>
