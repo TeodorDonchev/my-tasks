@@ -5,16 +5,13 @@ div.centered {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: monospace;
     padding: 8px;
 }
 
 nav {
-    font-family: monospace;
     /*make the nav in the center*/
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 10px;
 }
 
