@@ -3,6 +3,7 @@ import { AppTask } from 'contracts/Task';
 import { User } from 'contracts/User';
 import { forkJoin } from 'rxjs';
 import { BackendService } from '../backend.service';
+import { NotificationService } from "../notification.service";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent {
   selectedTask?:AppTask;
   selectedUser?: User;
 
-  constructor(private service: BackendService) {
+  constructor(private service: BackendService, private readonly notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class HomeComponent {
   }
 
   userSelect(u: User) {
+    this.notificationService.showError("Dummy error message");
     this.selectedUser = u;
     this.selectedTask = this.selectRandomTask();
   }
@@ -36,7 +38,13 @@ export class HomeComponent {
   }
 
   complete() {
-    this.service.completeTask(this.selectedTask?.id || 0, this.selectedUser?.id || 0).subscribe(isCompleted => {
+    if(!this.selectedTask || !this.selectedUser) {
+      this.notificationService.showError("Please select a user and a task");
+      return;
+    }
+    let taskid = this.selectedTask.id;
+    let userid = this.selectedUser.id;
+    this.service.completeTask(taskid, userid).subscribe(isCompleted => {
       if (isCompleted) {
         this.tasks = this.tasks.filter(t => t.id !== this.selectedTask?.id);
         this.selectedTask = undefined;
