@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ManagerComponent } from './manager/manager.component';
 import { UserService } from './backend-cache.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationComponent } from './notification/notification.component';
+import { UserSwitcherComponentComponent } from './user-switcher-component/user-switcher-component.component';
 
 
 
@@ -14,12 +17,15 @@ import { UserService } from './backend-cache.service';
   declarations: [
     AppComponent,
     HomeComponent,
-    ManagerComponent
+    ManagerComponent,
+    NotificationComponent,
+    UserSwitcherComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
